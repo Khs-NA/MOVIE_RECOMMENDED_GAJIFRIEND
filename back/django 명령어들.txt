@@ -1,0 +1,104 @@
+가상 환경 venv 생성
+python -m venv venv
+
+가상 환경 활성화
+source venv/Scripts/activate
+
+
+Django 설치
+pip install django
+
+requirements 읽어서 설치
+pip install -r requirements.txt 
+
+gitignore 생성
+code .gitignore
+venv/
+db.sqlite3
+
+
+
+환경에 설치된 패키지 목록 확인
+pip list
+
+의존성 패키지 목록 생성
+pip freeze > requirements.txt
+
+Django 프로젝트 생성
+django-admin startproject firstpjt .
+
+Django 앱 생성(앱 등록 할것!!)
+python manage.py startapp articles
+
+Django 서버 실행
+python manage.py runserver
+
+migration 작성
+python manage.py makemigrations
+
+최종설계도를 DB에 전달하여 반영
+python manage.py migrate
+
+admin계정 생성(admin.py에 from .models import Article 등록)
+python manage.py createsuperuser
+
+QuerySet API-외부 라이브러리 설치
+pip install ipython
+pip install django-extensions
+
+settings.py에 INSTALLED_APPS
+'django_extensions', 추가
+
+Django shell 실행
+python manage.py shell_plus
+
+
+Shell Plus Django Imports
+
+데이터 객체 만들기
+Article.objects.create(title='third', content='django!')
+
+ImageField 사용
+pip install Pillow
+
+의존성 패키지 목록 생성 해줘야함
+pip freeze > requirements.txt
+
+app_name으로 base 템플릿 사용할시 settings에 Templates 항목에 추가
+'DIRS': [BASE_DIR / 'templates'],
+
+REST - 준비된 fixtures파일을 load
+python manage.py loaddata articles.json
+
+REST 사용시 settings INSTALLED_APPS 에 다음 내용 넣기
+'rest_framework',
+
+drf-spectacular 라이브러리
+pip install drf-spectacular
+
+settings/INSTALLED_APPS 에 등록
+'drf_spectacular',
+
+settings에 추가
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+urls에 추가
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+urlpatterns = [
+    # YOUR PATTERNS
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional UI:
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+]
+
+
+
+Fixtures 데이터 로드
+python manage.py loaddata articles.json
+
+cors-headers
+pip install django-cors-headers
